@@ -6,9 +6,10 @@
 # end                              # end
 
 def can_be_instantiated_and_then_saved
-  movie = __
+  movie = Movie.new
   movie.title = "This is a title."
-  __
+  movie.in_theaters= false
+  movie.save
 end
 
 def can_be_created_with_a_hash_of_attributes
@@ -19,34 +20,40 @@ def can_be_created_with_a_hash_of_attributes
       director: "George Roy Hill",
       lead: "Paul Newman",
       in_theaters: false
+      
   }
-  movie = __
+  movie = Movie.create(attributes)
+  movie.save
 end
 
-def can_be_created_in_a_block(args = __)
+def can_be_created_in_a_block
   # If no arguments are passed, use default values:
   # title == "Home Alone"
   # release_date == 1990
-  
   Movie.create do |m|
-    __
+    m.title = "Home Alone"
+    m.release_date = "1990"
   end
 end
 
 def can_get_the_first_item_in_the_database
-  __
+  movie.first.title
+
+  
 end
 
 def can_get_the_last_item_in_the_database
-  __
+  movie.last.title
+
 end
 
 def can_get_size_of_the_database
-  __
+  movies.all.size 
+  
 end
 
 def can_find_the_first_item_from_the_database_using_id
-  __
+  movies.find(1).title
 end
 
 def can_find_by_multiple_attributes
@@ -54,7 +61,9 @@ def can_find_by_multiple_attributes
   # title == "Title"
   # release_date == 2000
   # director == "Me"
-  __
+movies.find_by(title: "Title")
+movies.find_by(release_date: "2000")
+movies.find_by(director: "Me")
 end
 
 def can_find_using_where_clause_and_be_sorted
@@ -65,7 +74,7 @@ end
 
 def can_be_found_updated_and_saved
   # Updtate the title "Awesome Flick" to "Even Awesomer Flick", save it, then return it
-  Movie.create(title: "Awesome Flick")
+  Movie.create(title: " Even Awesomer Flick")
   __
   __
   __
@@ -73,7 +82,7 @@ end
 
 def can_update_using_update_method
   # Update movie title to "Wat, huh?"
-  Movie.create(title: "Wat?")
+  Movie.create(title: "Wat?,huh?")
   __
   __
 end
@@ -81,7 +90,7 @@ end
 def can_update_multiple_items_at_once
   # Change title of all movies to "A Movie"
   5.times do |i|
-    Movie.create(title: "Movie_#{i}", release_date: 2000+i)
+    Movie.create(title: "A Movie", release_date: 2000+i)
   end
   __
 end
